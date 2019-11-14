@@ -1,0 +1,33 @@
+# mckeja4
+# Virt assignment 3
+# BIG YIKES
+# EVEN BIGGER OOF
+# James McKenzie
+
+version: "3.7"
+services:
+    flaskapp:
+        image: lunarised/flaskv3:latest
+        networks:
+            - app
+        deploy:
+            replicas: 3
+
+
+    nginx:
+        image: lunarised/nginx:1.0
+        ports:
+            - 5006:80
+        networks:
+            - app
+        depends_on:
+            - flaskapp
+        deploy:
+            replicas: 3
+    redis:
+        image: redis:latest
+        networks:
+            - app
+networks:
+    app:
+        driver: overlay
